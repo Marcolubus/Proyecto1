@@ -1,0 +1,189 @@
+<div
+  style="
+    margin-top: 2em;
+    margin-bottom: 1em;
+    margin-left: 1em;
+    margin-right: 1em;
+    display: flex;
+    justify-content: space-between;
+  "
+>
+  <div style="display: flex; align-items: center">
+    <i class="material-icons" style="color: gray">search</i>
+    <input
+      style="border: 1px solid gray; border-radius: 10px; width: 100%"
+      type="text"
+      name=""
+      id=""
+      [(ngModel)]="searchValue"
+      placeholder="Search..."
+    />
+  </div>
+  <div style="display: flex; align-items: center">
+    <p
+      style="
+        margin-top: 1em;
+        margin-right: 0.5em;
+        font-weight: bold;
+        text-transform: capitalize;
+      "
+    >
+      {{ user }}
+    </p>
+    <button class="logout" (click)="logout()">Logout</button>
+  </div>
+</div>
+<div style="display: flex; margin-bottom: 1em">
+  <!-- <div style="display: flex; align-items: center; width: 30%; margin-left: 1em">
+      <label> Search by Death </label>
+      <select
+        class="select"
+        (ngModelChange)="passValue($event)"
+        [(ngModel)]="value"
+      >
+        <option></option>
+        <option *ngFor="let death of allData" [value]="death.date">
+          {{ death.date }}
+        </option>
+      </select>
+    </div> -->
+  <!--<div style="display: flex; align-items: center; width: 30%; margin-left: 1em">
+      <label> Search by Date Checked </label>
+      <select
+        class="select"
+        (ngModelChange)="recordValue($event)"
+        [(ngModel)]="valueRecord"
+      >
+        <option></option>
+        <option *ngFor="let record of recoverds" [value]="record">
+          {{ record }}
+        </option>
+      </select>
+    </div>
+    <div style="display: flex; align-items: center; width: 30%; margin-left: 1em">
+      <label> Search by Fips </label>
+      <select
+        class="select"
+        (ngModelChange)="postNegValue($event)"
+        [(ngModel)]="valueRecord"
+      >
+        <option></option>
+        <option *ngFor="let postNeg of posNegs" [value]="postNeg">
+          {{ postNeg }}
+        </option>
+      </select>
+    </div> -->
+</div>
+<div style="width: 100%; overflow-x: scroll">
+  <table
+    class="table table-striped"
+    border="2"
+    style="
+      max-width: 100%;
+      width: 100%;
+      white-space: nowrap;
+      border-collapse: collapse;
+      overflow: scroll;
+    "
+  >
+    <col *ngFor="let header of headers" style="width: 400px" />
+    <thead>
+      <tr>
+        <th style="width: 500px" *ngFor="let header of headers">
+          {{ header }}
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        *ngFor="
+          let data of searchData
+            | filter : searchValue
+            | paginate
+              : {
+                  id: 'listing_pagination',
+                  itemsPerPage: 10,
+                  currentPage: page,
+                  totalItems: totalRecords
+                }
+        "
+      >
+        <td class="cellStyle">{{ data.checkTimeEt }}</td>
+        <td class="cellStyle">{{ data.commercialScore }}</td>
+        <td class="cellStyle">{{ data.dataQualityGrade }}</td>
+        <td class="cellStyle">{{ data.date }}</td>
+        <td class="cellStyle">{{ data.dateChecked }}</td>
+        <td class="cellStyle">{{ data.dateModified }}</td>
+        <td class="cellStyle">{{ data.death }}</td>
+        <td class="cellStyle">{{ data.deathConfirmed }}</td>
+        <td class="cellStyle">{{ data.deathIncrease }}</td>
+        <td class="cellStyle">{{ data.deathProbable }}</td>
+        <td class="cellStyle">{{ data.fips }}</td>
+        <td class="cellStyle">{{ data.grade }}</td>
+        <td class="cellStyle">{{ data.hash }}</td>
+        <td class="cellStyle">{{ data.hospitalized }}</td>
+        <td class="cellStyle">{{ data.hospitalizedCumulative }}</td>
+        <td class="cellStyle">{{ data.hospitalizedCurrently }}</td>
+        <td class="cellStyle">{{ data.hospitalizedDischarged }}</td>
+        <td class="cellStyle">{{ data.hospitalizedIncrease }}</td>
+        <td class="cellStyle">{{ data.inIcuCumulative }}</td>
+        <td class="cellStyle">{{ data.inIcuCurrently }}</td>
+        <td class="cellStyle">{{ data.lastUpdateEt }}</td>
+        <td class="cellStyle">{{ data.negative }}</td>
+        <td class="cellStyle">{{ data.negativeIncrease }}</td>
+        <td class="cellStyle">{{ data.negativeRegularScore }}</td>
+        <td class="cellStyle">{{ data.negativeScore }}</td>
+        <td class="cellStyle">{{ data.negativeTestsAntibody }}</td>
+        <td class="cellStyle">{{ data.negativeTestsPeopleAntibody }}</td>
+        <td class="cellStyle">{{ data.negativeTestsViral }}</td>
+        <td class="cellStyle">{{ data.onVentilatorCumulative }}</td>
+        <td class="cellStyle">{{ data.onVentilatorCurrently }}</td>
+        <td class="cellStyle">{{ data.pending }}</td>
+        <td class="cellStyle">{{ data.posNeg }}</td>
+        <td class="cellStyle">{{ data.positive }}</td>
+        <td class="cellStyle">{{ data.positiveCasesViral }}</td>
+        <td class="cellStyle">{{ data.positiveIncrease }}</td>
+        <td class="cellStyle">{{ data.positiveScore }}</td>
+        <td class="cellStyle">{{ data.positiveTestsAntibody }}</td>
+        <td class="cellStyle">{{ data.positiveTestsAntigen }}</td>
+        <td class="cellStyle">{{ data.positiveTestsPeopleAntibody }}</td>
+        <td class="cellStyle">{{ data.positiveTestsPeopleAntigen }}</td>
+        <td class="cellStyle">{{ data.positiveTestsViral }}</td>
+        <td class="cellStyle">{{ data.probableCases }}</td>
+        <td class="cellStyle">{{ data.recovered }}</td>
+        <td class="cellStyle">{{ data.score }}</td>
+        <td class="cellStyle">{{ data.state }}</td>
+        <td class="cellStyle">{{ data.total }}</td>
+        <td class="cellStyle">{{ data.totalTestEncountersViral }}</td>
+        <td class="cellStyle">{{ data.totalTestResults }}</td>
+        <td class="cellStyle">{{ data.totalTestResultsIncrease }}</td>
+        <td class="cellStyle">{{ data.totalTestResultsSource }}</td>
+        <td class="cellStyle">{{ data.totalTestsAntibody }}</td>
+        <td class="cellStyle">{{ data.totalTestsAntigen }}</td>
+        <td class="cellStyle">{{ data.totalTestsPeopleAntibody }}</td>
+        <td class="cellStyle">{{ data.totalTestsPeopleAntigen }}</td>
+        <td class="cellStyle">{{ data.totalTestsPeopleViral }}</td>
+        <td class="cellStyle">{{ data.totalTestsViral }}</td>
+        <!-- <td class="cellStyle">
+                <div style="display: flex">
+                  <div (click)="onDelete(data)">
+                    <i class="material-icons dIcon">delete</i>
+                  </div>
+                  <div>
+                    <i class="material-icons eIcon" (click)="onUpdate(data)">edit</i>
+                  </div>
+                </div>
+              </td> -->
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div>
+  <pagination-controls
+    id="listing_pagination"
+    [maxSize]="5"
+    (pageChange)="page = $event"
+  >
+  </pagination-controls>
+</div>

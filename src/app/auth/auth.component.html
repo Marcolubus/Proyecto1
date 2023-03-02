@@ -1,0 +1,19 @@
+
+<div style="display: flex; align-items: center; justify-content: center; margin-top: 18%;">
+    <p *ngIf="wrong" style="color: red; font-size: 11px;">
+        
+        Usuario o contraseña incorrecto 
+    </p>
+</div>
+<div style="display: flex; align-items: center; justify-content: center; margin-top: 1em;">
+        <label for="userName">Usuario</label>
+        <input [(ngModel)]="role" style="margin-left: 1.7em;border: 1px solid gray; border-radius: 10px;  padding-left: .5em" type="text">
+
+</div>
+<div style="display: flex; align-items: center; justify-content: center; margin-top: 1em;">
+        <label for="Password">Contraseña</label>
+        <input [(ngModel)]="password" style="margin-left: 0.5em; border: 1px solid gray; border-radius: 10px; padding-left: .5em;" type="password">
+</div>
+<div style="display: flex; align-items: center; justify-content: center; margin-top: 1em;">
+    <button class="my-btn" (click)="login()">Login</button>
+</div>
